@@ -1,6 +1,8 @@
 package com.poof.gui;
 
+import javax.imageio.plugins.jpeg.JPEGHuffmanTable;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -32,11 +34,32 @@ public class GameWindow extends JFrame implements ActionListener {
         setSize(WIDTH,HEIGHT);
         setLocationRelativeTo(null);
 
+        btnExitGame.addActionListener(this);
+        btnNewGame.addActionListener(this);
+        btnPauseGame.addActionListener(this);
+
+        addComponents();
+        add(rightPanel, BorderLayout.EAST);
+
         gameField = new GameField();
         add(gameField);
 
-
         setVisible(true);
+    }
+
+    void addComponents(){
+        rightPanel = new JPanel(new GridLayout(2,1));
+        JPanel btnPanel = new JPanel(new GridLayout(3,1));
+        JPanel symbolPanel = new JPanel(new GridLayout(2,1));
+
+        symbolPanel.add(new JLabel("the next element:"));
+
+        btnPanel.add(btnPauseGame);
+        btnPanel.add(btnNewGame);
+        btnPanel.add(btnExitGame);
+
+        rightPanel.add(symbolPanel);
+        rightPanel.add(btnPanel);
     }
 
     @Override
