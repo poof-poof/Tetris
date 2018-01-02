@@ -11,7 +11,10 @@ public class GameField extends JPanel {
 
     GameField(){
         setBackground(Color.BLACK);
-        e = new Element();
+        this.e = new Element();
     }
 
+    public Element getE() {
+        return e;
+    }
 }

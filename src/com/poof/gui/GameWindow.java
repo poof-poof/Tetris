@@ -22,6 +22,7 @@ public class GameWindow extends JFrame implements ActionListener {
     public static final String TITLE = "Tetris by POOF";
 
     private GameField gameField;
+    private PreviewElement previewElement;
     private JPanel rightPanel;
     private JButton btnNewGame = new JButton("Start new game");
     private JButton btnExitGame = new JButton("Exit");
@@ -50,9 +51,11 @@ public class GameWindow extends JFrame implements ActionListener {
     void addComponents(){
         rightPanel = new JPanel(new GridLayout(2,1));
         JPanel btnPanel = new JPanel(new GridLayout(3,1));
-        JPanel symbolPanel = new JPanel(new GridLayout(2,1));
+        JPanel symbolPanel = new JPanel(new BorderLayout());
 
-        symbolPanel.add(new JLabel("the next element:"));
+        symbolPanel.add(new JLabel("the next element:"), BorderLayout.NORTH);
+        previewElement = new PreviewElement();
+        symbolPanel.add(previewElement);
 
         btnPanel.add(btnPauseGame);
         btnPanel.add(btnNewGame);
@@ -64,7 +67,15 @@ public class GameWindow extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        Object src = e.getSource();
+        if (src == btnNewGame){
+            previewElement.paintPreview(gameField.getE());
+        }else if (src == btnExitGame){
+            System.exit(0);
+        }
+        else{
+            throw new RuntimeException("Unknown source: " + src);
+        }
     }
 
 }
